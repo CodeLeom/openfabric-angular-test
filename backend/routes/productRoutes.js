@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getProducts, getProduct, createProduct, deleteProduct, updateProduct} = require('../controllers/ticketController')
+const {getProducts, getProduct, createProduct, deleteProduct, updateProduct} = require('../controllers/productController')
 
 const {protect} = require('../middleware/authMiddleware')
 
