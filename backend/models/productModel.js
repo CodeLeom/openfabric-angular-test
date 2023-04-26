@@ -6,10 +6,14 @@ const productSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    product: {
-        name: String,
-        price: [Int32Array, 'Please input a price'],
-    },
+    name: {
+        type: String,
+        required: [true, 'Please add a product name']
+      },
+      price: {
+        type: Number,
+        required: [true, 'Please add a product price']
+      },
     description: {
         type: String,
         required: [true, 'Please add a description to the product']
