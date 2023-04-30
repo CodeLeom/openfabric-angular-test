@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const Product = require('../models/productModel')
 
-// @desc        Get user tickets from db
+// @desc        Get user products from db
 // @route      GET /api/products
 // @access      Private
 const getProducts = asyncHandler(async (req, res) => {
@@ -47,7 +47,7 @@ const getProduct = asyncHandler(async (req, res) => {
 })
 
 // @desc        Create new products
-// @route      POST /api/tickets
+// @route      POST /api/products
 // @access      Private
 const createProduct = asyncHandler(async (req, res) => {
     const {product, description} = req.body
