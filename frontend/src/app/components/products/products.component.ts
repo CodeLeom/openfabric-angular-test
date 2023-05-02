@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit {
   // handle edit action 
   handleEdit(){
     event?.preventDefault();
-    this.toast.loading('updating product...')
+    const loadingToast = this.toast.loading('updating product...');
     this.api.editProduct(this.p_id, this.p_name, this.p_price, this.p_desc)
     .subscribe({
       next: () => {
