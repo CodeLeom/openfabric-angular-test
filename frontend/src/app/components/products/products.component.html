@@ -1,0 +1,62 @@
+<div class="product-container" >
+
+    <a (click)="addProductModal(true)" *ngIf="localToken" class="btn btn-primary new-product-button">
+        Add New Product &nbsp;
+        <i class="bi bi-plus-circle-fill"></i>
+    </a>
+
+
+    <div *ngIf="loading" class="text-center">
+        loading...
+    </div>
+    <h1 *ngIf="!localToken" class="not-signed-in">
+        Sign Up or Login to see All products
+    </h1>
+    <h1 *ngIf="products.length === 0" class="all-products-header">
+        All Products are shown here, click the 'Add Product' button to get started
+    </h1>
+
+    <div class="all-products" *ngIf="products.length > 0">
+        <ul>
+            <li 
+                *ngFor="let product of products; let idx = index" 
+                class="card">
+                    <div class="product-header">
+                        <a [routerLink]="['/product', idx]">
+                            <h2>{{ product.name }}</h2>
+                        </a>
+                        <div class="options" *ngIf="localToken">
+                            <i
+                            (click)="showEditModal(product._id, product.name, product.price, product.description)"
+                            class="bi bi-pencil-square text-primary"></i>
+                            <i
+                            (click)="showDeleteModal(product._id, product.name)"
+                            class="bi bi-trash3-fill text-danger"></i>
+                        </div>
+                    </div>
+                    <h3 class="product-price">{{ product.price | currency: 'USD' }}</h3>
+                    <p class="product-body">{{ product.description }}</p>
+            </li>
+        </ul>
+    </div>
+    <!-- <div class="no-product" [ngClass]="products.length === 0 ? 'd-block' : 'd-none' ">
+        Products will display here
+    </div>  -->
+
+    <app-add-product
+        *ngIf="displayAddProductModal"
+        (addProductModal)="addProductModal(false)"></app-add-product>
+    <app-edit-product
+        *ngIf="displayEditProductModal"
+        [id]="p_id"
+        [name]="p_name"
+        [price]="p_price"
+        [description]="p_desc"
+        (closeEditModal)="closeEditModal()"></app-edit-product>
+    <app-delete-product 
+        *ngIf="displayDeleteProductModal"
+        [productId]="p_id"
+        [productName]="p_name"
+        (closeDeleteModal)="closeDeleteModal()"
+        (handleDelete)="handleDelete()"></app-delete-product>
+</div>

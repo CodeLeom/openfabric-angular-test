@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+.overlay{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 60px;
+    z-index: 3;
+    background: #3d82fa7a;
+}
+
+.custom-modal{
+    position: absolute;
+    z-index: 5;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    max-width: 450px;
+    width: 90%;
+    min-width: 300px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+}

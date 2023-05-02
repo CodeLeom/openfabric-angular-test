@@ -1,0 +1,22 @@
+
+<div class="overlay">
+    <div class="custom-modal modal-height" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1 class="text-center">Do you wish to delete {{ productName }}?</h1>
+                    <div class="action-btns">
+                        <a
+                        class="btn btn-default btn-outline-secondary" 
+                        (click)="closeDeleteModal.emit()">Cancel</a> 
+
+                        <a
+                        class="btn btn-danger" 
+                        (click)="handleDelete.emit()"
+                        >Delete</a> 
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

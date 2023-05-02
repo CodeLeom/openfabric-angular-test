@@ -1,0 +1,18 @@
+.modal-height{
+    height: 30vh;
+}
+.modal-body{
+    display: grid;
+    row-gap: 30px;
+}
+.modal-body h1{
+    font-size: 20px;
+    margin-top: 30px;
+}
+.action-btns{
+    display: flex;
+    justify-content: space-around;
+}
+.action-btns a{
+    cursor: pointer;
+}
