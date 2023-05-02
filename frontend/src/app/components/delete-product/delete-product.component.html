@@ -9,11 +9,11 @@
                         <a
                         class="btn btn-default btn-outline-secondary" 
                         (click)="closeDeleteModal.emit()">Cancel</a> 
-
+                        
                         <a
                         class="btn btn-danger" 
-                        (click)="handleDelete.emit()"
-                        >Delete</a> 
+                        (click)="handleDelete()"
+                        >{{loading ? 'Deleting...' : 'Delete'}}</a> 
                     </div>  
                 </div>
             </div>

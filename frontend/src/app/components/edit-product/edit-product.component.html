@@ -10,7 +10,7 @@
                     (click)="closeEditModal.emit()"></i> 
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="editProductForm" class="form-body" (ngSubmit)="handleEdit.emit()">
+                    <form [formGroup]="editProductForm" class="form-body" (ngSubmit)="submit()">
                         <div>
                             <label for="name">Name</label><br/>
                             <input 

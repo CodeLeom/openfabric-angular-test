@@ -12,7 +12,7 @@ import { HotToastService } from '@ngneat/hot-toast';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  products!: any;
+  products$: any;
   loading = false;
   localToken!: string | null;
   p_id!: string;
@@ -53,21 +53,7 @@ export class ProductsComponent implements OnInit {
     this.p_price = 0;
     this.p_desc = '';
   }
-  // handle edit action 
-  handleEdit(){
-    event?.preventDefault();
-    const loadingToast = this.toast.loading('updating product...');
-    this.api.editProduct(this.p_id, this.p_name, this.p_price, this.p_desc)
-    .subscribe({
-      next: () => {
-        this.toast.success('Update Successful');
-        this.closeEditModal;
-      },
-      error: (err) => {
-        this.toast.error(err.error.message);
-      }
-    })
-  }
+  
 
   // toggle 'delete product' modal
   showDeleteModal(id: string, name: string){
@@ -81,41 +67,26 @@ export class ProductsComponent implements OnInit {
     this.p_name = '';
   }
 
-  // handle prodcut delete
-  handleDelete(){
-    // const token = localStorage.getItem('select_user');
-    this.toast.loading('deleting product...');
-    if(this.p_id){
-      this.api.deleteProduct(this.p_id).subscribe({ 
-        next: (res) => {
-        this.toast.success(this.p_name + ' deleted successfully');
-        this.closeDeleteModal();
-      },
-      error: () => {
-        this.toast.error('Could not delete ' + this.p_name)
-      }
+
+
+  getProducts(){
+    this.api.getAllProducts().subscribe(data => {
+      this.products$ = data
+      this.loading = false;
     })
-    }
   }
-
-
-
 
   ngOnInit(): void {
     this.loading = true;
 
     this.localToken = localStorage.getItem('user_token');
 
-    if(!this.localToken){
-      this.loading = false;
-    }
-
-    this.api.getAllProducts().subscribe(data => {
-      this.loading = false;
-      setTimeout(() => {
-        this.products = data
-      }, 100);
+    this.getProducts();
+    this.api.RefreshRequired.subscribe(response => {
+      this.getProducts();
     })
+
+    
 
   }
 

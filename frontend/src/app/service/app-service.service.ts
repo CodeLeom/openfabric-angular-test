@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,11 @@ export class AppServiceService {
   private baseUrl = 'http://localhost:3005';
   constructor(private http: HttpClient) { }
 
+  private _refreshrequired = new Subject<void>()
 
-  headers = { 'Authorization': 'Bearer bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDlhNDljMDJkMzk2YmM2MGIxMGQ1MCIsImlhdCI6MTY4MzAyNTYxNywiZXhwIjoxNjg1NjE3NjE3fQ.psFwVxZFTPuNS_X8YAeXDxOlIpKJGY8rxcGRFlOYnqs'}
+  get RefreshRequired(){
+    return this._refreshrequired;
+  }
 
   getLocalData(){
     const data = localStorage.getItem('user_data');
@@ -43,10 +46,16 @@ export class AppServiceService {
       price,
       description
     })
+    .pipe(tap(() => {
+      this.RefreshRequired.next();
+    }))
   }
 
   deleteProduct(id: string){
     return this.http.delete(`${this.baseUrl}/api/products/${id}`)
+    .pipe(tap(() => {
+      this.RefreshRequired.next();
+    }))
   }
 
   editProduct(id: string, name: string, price: number, description: string){
@@ -57,12 +66,12 @@ export class AppServiceService {
     })
   }
 
-  // getSingleProduct(id: string){
-  //   return this.http.get(`${this.baseUrl}/api/products/${id}`)
-  // }
+  getSingleProduct(id: string){
+    return this.http.get(`${this.baseUrl}/api/products/${id}`)
+  }
 
   getAllProducts(): Observable<any>{
-    return this.http.get(`${this.baseUrl}/api/products`);
+    return this.http.get(`${this.baseUrl}/api/products`)
   }
 
 

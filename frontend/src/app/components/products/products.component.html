@@ -12,17 +12,17 @@
     <h1 *ngIf="!localToken" class="not-signed-in">
         Sign Up or Login to see All products
     </h1>
-    <h1 *ngIf="products.length === 0" class="all-products-header">
+    <h1 *ngIf="products$.length === 0" class="all-products-header">
         All Products are shown here, click the 'Add Product' button to get started
     </h1>
 
-    <div class="all-products" *ngIf="products.length > 0">
+    <div class="all-products" *ngIf="products$.length > 0">
         <ul>
             <li 
-                *ngFor="let product of products; let idx = index" 
+                *ngFor="let product of products$;"  
                 class="card">
                     <div class="product-header">
-                        <a [routerLink]="['/product', idx]">
+                        <a [routerLink]="['/product', product._id]">
                             <h2>{{ product.name }}</h2>
                         </a>
                         <div class="options" *ngIf="localToken">
@@ -57,6 +57,5 @@
         *ngIf="displayDeleteProductModal"
         [productId]="p_id"
         [productName]="p_name"
-        (closeDeleteModal)="closeDeleteModal()"
-        (handleDelete)="handleDelete()"></app-delete-product>
+        (closeDeleteModal)="closeDeleteModal()"></app-delete-product>
 </div>

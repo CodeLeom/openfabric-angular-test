@@ -8,9 +8,9 @@ import { AppServiceService } from 'src/app/service/app-service.service';
   styleUrls: ['./delete-product.component.css']
 })
 export class DeleteProductComponent {
+  loading: boolean = false;
 
   @Output() closeDeleteModal = new EventEmitter();
-  @Output() handleDelete = new EventEmitter();
   @Input() productId!: string;
   @Input() productName!: string;
 
@@ -21,6 +21,22 @@ export class DeleteProductComponent {
 
   
 
-
+  handleDelete(){
+    // const token = localStorage.getItem('select_user');
+    this.loading = true;
+    if(this.productId){
+      this.api.deleteProduct(this.productId).subscribe({ 
+        next: (res) => {
+        this.loading = false;
+        this.toast.success(this.productName + ' deleted successfully');
+        this.closeDeleteModal.emit();
+      },
+      error: () => {
+        this.loading = false;
+        this.toast.error('Could not delete ' + this.productName)
+      }
+    })
+    }
+  }
 
 }

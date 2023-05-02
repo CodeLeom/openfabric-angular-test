@@ -11,7 +11,6 @@ import { AppServiceService } from 'src/app/service/app-service.service';
 export class EditProductComponent {
 
   @Output() closeEditModal = new EventEmitter();
-  @Output() handleEdit = new EventEmitter();
   @Input() id!: string;
   @Input() name!: string;
   @Input() price!: number;
@@ -32,7 +31,22 @@ export class EditProductComponent {
     description: [this.name, [Validators.required]],
   });
 
-  
+  submit(){
+    event?.preventDefault();
+    this.loading = true;
+    this.api.editProduct(this.id, this.name, this.price, this.description)
+    .subscribe({
+      next: () => {
+        this.loading = false;
+        this.toast.success('Update Successful');
+        this.closeEditModal.emit();
+      },
+      error: (err) => {
+        this.loading = false;
+        this.toast.error(err.error.message);
+      }
+    })
+  }
 
   get product_name(){
     return this.editProductForm.get('name');

@@ -1,1 +1,14 @@
-<h1>Product Detail</h1>
+<div *ngIf="productDetail" >
+    <a routerLink="all-products">&larr; Back</a>
+    <div class="product-detail">
+        <h1>Product Detail</h1>
+        <h2>{{ productDetail.name }}</h2>
+        <p>
+            <b>Price:</b> {{ productDetail.price | currency: 'USD' }}
+        </p>
+        <p>
+            <b>Description:</b> {{ productDetail.description }}
+        </p>
+    </div>
+</div>
+<!-- <div>detail works</div> -->
