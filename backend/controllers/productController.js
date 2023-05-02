@@ -50,11 +50,11 @@ const getProduct = asyncHandler(async (req, res) => {
 // @route      POST /api/products
 // @access      Private
 const createProduct = asyncHandler(async (req, res) => {
-    const {product, description} = req.body
+    const {product, price, description} = req.body
 
-    if(!product || !description){
+    if(!product || !price || !description){
         res.status(400)
-        throw new Error('Please enter product name and the details')
+        throw new Error('Please enter product name, price and the details')
     }
      // Get user using the id in the JWT
      const user = await User.findById(req.user.id)
@@ -66,6 +66,7 @@ const createProduct = asyncHandler(async (req, res) => {
 
      const sProduct = await Product.create({
         product,
+        price,
         description,
         user: req.user.id
      })
