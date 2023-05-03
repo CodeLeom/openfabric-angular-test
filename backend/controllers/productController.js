@@ -126,7 +126,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
 
     const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body)
-    res.status(200).json(updateProduct)
+    res.status(200).json(updatedProduct)
 })
 
 module.exports = {
